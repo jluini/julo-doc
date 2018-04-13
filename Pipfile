@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+name = "pypi"
+verify_ssl = true
+
+[packages]
+django = "*"
+gunicorn = "*"
+django-heroku = "*"
+requests = "*"
+mistune = "*"
+#pandoc = "*"
+#markdown = "*"
+#md2py = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"
