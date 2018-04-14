@@ -4,12 +4,12 @@ name = "pypi"
 verify_ssl = true
 
 [packages]
-django = "*"
+Django = "*"
 gunicorn = "*"
 django-heroku = "*"
 requests = "*"
 mistune = "*"
-pandoc = "*"
+pypandoc = "*"
 #pandoc = "*"
 #markdown = "*"
 #md2py = "*"

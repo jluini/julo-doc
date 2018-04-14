@@ -1,10 +1,10 @@
 <html>
 	<head>
 		<title>{{ article.article_title }}</title>
-		<!-- script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script --> 
+		<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script> 
 	</head>
 	<body>
 		<h1>{{ article.article_title }}</h1>
-		{{ text|safe }}
+		{{ articleHtml | safe }}
 	</body>
 </html>

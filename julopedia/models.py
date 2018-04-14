@@ -17,6 +17,7 @@ class Article(models.Model):
     def __str__(self):
         return "Article '{}' of type {}".format(self.article_key, self.article_type)
     
+    
 class Node(models.Model):
     node_content = models.ForeignKey(Article, on_delete=models.SET_NULL, null = True, blank = True)
     node_parent = models.ForeignKey('self', on_delete=models.SET_NULL, null = True, blank = True)
