@@ -1,1 +1,0 @@
-# discontinued in favor of http://www.freewisdom.org/projects/python-markdown/markdown.py
