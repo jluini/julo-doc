@@ -1,5 +1,3 @@
 # julo-doc
 
 Enciclopedia loca.
-
-
