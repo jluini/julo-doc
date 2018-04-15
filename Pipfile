@@ -4,15 +4,14 @@ name = "pypi"
 verify_ssl = true
 
 [packages]
-Django = "*"
+#dj-database-url = "*"
+django = "*"
 gunicorn = "*"
+psycopg2 = "*"
 django-heroku = "*"
 requests = "*"
 mistune = "*"
 pypandoc = "*"
-#pandoc = "*"
-#markdown = "*"
-#md2py = "*"
 
 [dev-packages]
 

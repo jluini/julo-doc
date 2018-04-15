@@ -15,7 +15,14 @@ import pypandoc
 # Create your views here.
 
 def index(request):
-    return render(request, 'julopedia/index.html')
+    articles = Article.objects.order_by('-article_title')
+    return render(
+        request,
+        'julopedia/index.html',
+        {
+            'articleList': articles
+        }
+    )
 
 
 
@@ -48,7 +55,8 @@ def article(request, article_path):
     #return HttpResponse("You're looking at article '%s'." % article_key)
 
 def articleToHtml(article):
-    ret = pypandoc.convert_text(article.article_body, 'html', format='markdown+tex_math_double_backslash', extra_args=['--mathjax'])
+    #ret = pypandoc.convert_text(article.article_body, 'html', format='markdown+tex_math_double_backslash', extra_args=['--mathjax'])
+    ret = pypandoc.convert_text(article.article_body, 'html', format='markdown', extra_args=['--mathjax'])
     print(ret)
     return ret
     
@@ -66,7 +74,7 @@ def traverse(tree, level, buf = ''):
     return buf
     
 def getKeyFromPath(path):
-    pattern = re.compile('^[A-Za-z][A-Za-z0-9\-]*$')
+    pattern = re.compile('^[A-Za-z][A-Za-z0-9\-\.]*$')
     
     ret = ''
     first = True
