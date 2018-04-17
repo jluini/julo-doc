@@ -3,11 +3,11 @@ from django import forms
 
 # Register your models here.
 
-from .models import Author, Article, Guide
+from .models import Author, Article, Guide, Node
 
 
 class ArticleModelForm(forms.ModelForm):
-    article_body = forms.CharField(widget=forms.Textarea)
+    article_body = forms.CharField(widget=forms.Textarea, required=False)
     class Meta:
         fields = '__all__'
         model = Article
@@ -22,6 +22,6 @@ admin.site.register(Article, ArticleAdmin)
 admin.site.register(Author)
 
 admin.site.register(Guide)
-#admin.site.register(Node)
+admin.site.register(Node)
 
 

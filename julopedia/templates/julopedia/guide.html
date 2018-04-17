@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Julopedia</title>
-    <meta name="description" content="Julopedia">
-    <meta name="author" content="Julián Luini">
+    <title>{{ guide.guide_title }}</title>
+    <meta name="description" content="Guía '{{ guide.guide_title }}'">
+    <meta name="author" content="{{ guide.guide_author.author_name }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
@@ -56,28 +56,10 @@
 
     <div class="w3-row w3-padding-64">
         <div class="w3-twothird w3-container">
-            <h1 class="w3-text-teal">Julopedia</h1>
-                <h2>Guías</h2>
-                
-                <ul>
-                {% for guide in guides %}
-                    <li>
-                        <a href="{% url 'guide' guide.guide_key %}">{{ guide.guide_title }}</a>
-                        
-                        {{ guide.toHtml | safe }}
-                    </li>
-                {% endfor %} 
-                </ul>
-                
-                <h2>Artículos</h2>
-                
-                <ul>
-                {% for article in articles %}
-                    <li>
-                        <a href="{% url 'article' article.article_key %}">{{ article.article_title }}</a>
-                    </li>
-                {% endfor %} 
-                </ul>
+            <h1 class="w3-text-teal">{{ guide.guide_title }}</h1>
+            
+            {{ guideHtml | safe }}
+            
         </div>
         <div class="w3-third w3-container">
             <p class="w3-border w3-padding-large w3-padding-32 w3-center">AD</p>
@@ -110,7 +92,7 @@
             <p class="w3-border w3-padding-large w3-padding-64 w3-center">AD</p>
         </div>
     </div>
-    -->
+
     <!-- Pagination -->
     <div class="w3-center w3-padding-32">
         <div class="w3-bar">
@@ -122,7 +104,8 @@
             <a class="w3-button w3-hover-black" href="#">»</a>
         </div>
     </div>
-
+    
+    
     <footer id="myFooter">
         <div class="w3-container w3-theme-l2 w3-padding-32">
             <h4>Footer</h4>
@@ -160,6 +143,8 @@ function w3_close() {
     overlayBg.style.display = "none";
 }
 </script>
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 </html>
