@@ -1,0 +1,47 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-20 17:34-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: julopedia/models.py:37
+msgid "author"
+msgstr "autor"
+
+#: julopedia/models.py:38
+msgid "authors"
+msgstr "autores"
+
+#: julopedia/models.py:58
+msgid "node"
+msgstr "nodo"
+
+#: julopedia/models.py:59
+msgid "nodes"
+msgstr "nodos"
+
+#: julopedia/templates/julopedia/index.html:62
+msgid "Root nodes"
+msgstr "Nodos raíz"
+
+#: julopedia/templates/julopedia/node.html:63
+msgid "Table of contents"
+msgstr "Tabla de contenidos"
+
+#: julopedia/templates/julopedia/node.html:66
+msgid "Body"
+msgstr "Cuerpo"

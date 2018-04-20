@@ -1,3 +1,6 @@
+{% load i18n %}
+{% load static %}
+
 <!doctype html>
 
 <html lang="es">
@@ -13,7 +16,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
-    {% load static %}
     <link rel="stylesheet" href="{% static 'julopedia/css/styles.css?v=1.0' %}">
 
     <!--[if lt IE 9]>
@@ -57,28 +59,17 @@
     <div class="w3-row w3-padding-64">
         <div class="w3-twothird w3-container">
             <h1 class="w3-text-teal">Julopedia</h1>
-                <h2>Guías</h2>
-                
-                <ul>
-                {% for guide in guides %}
-                    <li>
-                        <a href="{% url 'guide' guide.guide_key %}">{{ guide.guide_title }}</a>
-                        
-                        {{ guide.toHtml | safe }}
-                    </li>
-                {% endfor %} 
-                </ul>
-                
-                <h2>Artículos</h2>
-                
-                <ul>
-                {% for article in articles %}
-                    <li>
-                        <a href="{% url 'article' article.article_key %}">{{ article.article_title }}</a>
-                    </li>
-                {% endfor %} 
-                </ul>
+            <h2>{% trans "Root nodes" %}</h2>
+            
+            <ul>
+            {% for node in nodes %}
+                <li>
+                    <a href="{% url 'node' node.node_key %}">{{ node.title }}</a>
+                </li>
+            {% endfor %} 
+            </ul>
         </div>
+        
         <div class="w3-third w3-container">
             <p class="w3-border w3-padding-large w3-padding-32 w3-center">AD</p>
             <p class="w3-border w3-padding-large w3-padding-64 w3-center">AD</p>

@@ -1,79 +1,76 @@
 from django.db import models
 from django.urls import reverse
+from django.template.defaultfilters import title
+from django.core.exceptions import ObjectDoesNotExist
+from django.utils.translation import gettext_lazy as _
 
+class NodeManager(models.Manager):
+    def get_children(self, node):
+        return self.filter(parent=node.id)
+    
+    def get_by_path(self, path):
+        if not isinstance(path, (list, tuple)):
+            raise Node.DoesNotExist("Node with path " + path.join("//"))
+        elif len(path) == 0:
+            raise Node.DoesNotExist("Empty path")
+        
+        node = None
+        for token in path:
+            try:
+                if(node == None):
+                    node = self.get(parent=None,    node_key=token)
+                else:
+                    node = self.get(parent=node.id, node_key=token)
+                
+            except ObjectDoesNotExist:
+                raise Node.DoesNotExist("child with key '%s'" % token)
+            
+        if not node:
+            raise Exception("Node expected")
+        
+        return node
+    
 class Author(models.Model):
     author_name = models.CharField(max_length = 200)
 
     def __str__(self):
         return self.author_name
-
-class Article(models.Model):
-    article_key    = models.CharField(max_length = 200)
-    article_author = models.ForeignKey(Author, on_delete=models.SET_NULL, null = True, blank = True)
-    article_title  = models.CharField(max_length = 200)
-    article_type   = models.IntegerField(default = 0)
-    article_body   = models.CharField(max_length = 15000, blank=True, default='')
-    article_modification_date = models.DateTimeField('date modified')
-
-    def __str__(self):
-        return "Article '{}' of type {}".format(self.article_key, self.article_type)
     
-    
+    class Meta:
+        verbose_name = _('author')
+        verbose_name_plural = _('authors')
+
 class Node(models.Model):
-    node_content = models.ForeignKey(Article, on_delete=models.SET_NULL, null = True, blank = True)
-    node_parent = models.ForeignKey('self', on_delete=models.SET_NULL, null = True, blank = True)
-    #node_title = models.CharField(max_length = 200, default = '')
+    node_type = models.IntegerField(default = 0, choices = (
+        (0, "section"),
+        (1, "theory"),
+        (2, "exercise"),
+    ))
+    node_key = models.CharField(max_length = 200) 
+    title  = models.CharField(max_length = 200)
+    content = models.CharField(max_length = 15000, blank=True, default='')
+    author = models.ForeignKey(Author, on_delete=models.SET_NULL, null = True, blank = True)
     
-    def toHtml(self, draw_first = True):
-        if not self.node_content:
-            node_title = '(null node)'
-        else:
-            node_title = self.node_content.article_title
-        
-        ret = ''
-        if draw_first:
-            if self.node_content != None:
-                key   = self.node_content.article_key
-                title = self.node_content.article_title
-                ret += '<a href="%s">%s</a>' % (reverse('article', args=[key]), title)
-            else:
-                ret += '(Empty)'
-        
-        children = self.getChildren()
-        if children.count():
-            ret += '<ul>\n'
-            
-            for child in children:
-                ret += '<li>\n'
-                ret += child.toHtml()
-                ret += '</li>\n'
-            
-            ret += '</ul>'
-        return ret
     
-    def getChildren(self):
-        ret = Node.objects.filter(node_parent=self.id)
-        return ret
-
-class Guide(models.Model):
-    guide_key = models.CharField(max_length = 200, default='guide1')
-    guide_author = models.ForeignKey(Author, on_delete=models.SET_NULL, null = True, blank = True)
-    guide_title = models.CharField(max_length = 200, default = '')
-    guide_root = models.ForeignKey(Node, on_delete=models.SET_NULL, null = True, blank = True)
+    created_time = models.DateTimeField(editable=False)
+    modified_time = models.DateTimeField(editable=False)
+    
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, null = True, blank = True)
+    
+    objects = NodeManager()
+    
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        if not self.id:
+            self.created_time = timezone.now()
+        self.modified_time = timezone.now()
+        
+        return super(Node, self).save(*args, **kwargs)
+    
+    class Meta:
+        order_with_respect_to = 'parent'
+        verbose_name = _('node')
+        verbose_name_plural = _('nodes')
     
     def __str__(self):
-        return "Guide '" + self.guide_title + "'"
-    
-    def toHtml(self):
-        #et = self.guide_title + '\n'
-        ret = ''
-        
-        if self.guide_root:
-            ret += self.guide_root.toHtml(True)
-        else:
-            ret += '(no guide_root)'
-        
-        return ret
-
-
-# article = Article(article_key='biofisica.cinematica',article_title='Cinemática',article_body='La cinemática bla bla bla.',article_author=author,article_type=1,article_modification_date=timezone.now())
+        return self.title

@@ -3,25 +3,18 @@ from django import forms
 
 # Register your models here.
 
-from .models import Author, Article, Guide, Node
+from .models import Author, Node
 
 
-class ArticleModelForm(forms.ModelForm):
-    article_body = forms.CharField(widget=forms.Textarea, required=False)
+class NodeModelForm(forms.ModelForm):
+    content = forms.CharField(widget=forms.Textarea, required=False)
     class Meta:
         fields = '__all__'
-        model = Article
+        model = Node
     
 
-class ArticleAdmin(admin.ModelAdmin):
-    form = ArticleModelForm
-
-admin.site.register(Article, ArticleAdmin)
-
+class NodeAdmin(admin.ModelAdmin):
+    form = NodeModelForm
 
 admin.site.register(Author)
-
-admin.site.register(Guide)
-admin.site.register(Node)
-
-
+admin.site.register(Node, NodeAdmin)

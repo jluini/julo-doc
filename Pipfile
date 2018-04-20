@@ -12,6 +12,7 @@ django-heroku = "*"
 requests = "*"
 mistune = "*"
 pypandoc = "*"
+pandocfilters = "*"
 
 [dev-packages]
 
