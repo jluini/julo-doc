@@ -1,1 +1,1 @@
-web: gunicorn julo_doc.wsgi
+web: gunicorn julodoc.wsgi
