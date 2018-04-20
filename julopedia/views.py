@@ -130,7 +130,6 @@ def newNode(node_type, keyy, title, content, author, parentNode):
         title = title,
         content = content,
         author = author,
-        modification_date = timezone.now(),
         parent = parentNode,
     )
     node.save()
