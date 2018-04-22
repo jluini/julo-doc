@@ -1,0 +1,83 @@
+from django.utils import html
+from django.utils.safestring import mark_safe
+from django import template
+
+from julopedia.models import Node
+
+register = template.Library()
+
+@register.simple_tag
+def editor(node):
+    
+    elements = editor_recursive(node, [], 0)
+    
+    editorHtml = ''
+    
+    for i in range(0, len(elements) + 1):
+        editorHtml = draw_bar(editorHtml, elements, i)
+        
+        if i < len(elements):
+            editorHtml = draw_element(editorHtml, elements[i])
+    
+    
+    return mark_safe(editorHtml)
+
+def draw_bar(editorHtml, elements, index):
+    prev_index = index - 1
+    post_index = index
+    
+    if prev_index >= 0:
+        max = elements[prev_index].level + 1
+    else:
+        max = 0
+    
+    if post_index < len(elements):
+        min = elements[post_index].level
+    else:
+        min = 0
+    
+    if min > max:
+        raise Exception('Unexpected %s > %s' % (min, max))
+        
+    editorHtml += '<div class="bar">'
+    for i in range(min):
+        editorHtml += '<div class="holder holder_empty">.</div>'
+    for i in range(min, max + 1):
+        editorHtml += '<div class="holder">.</div>'
+    
+    editorHtml += '</div>'
+    
+    return editorHtml
+
+def draw_element(editorHtml, element):
+    editorHtml += '<div class="element">'
+    for i in range(element.level):
+        editorHtml += '<div class="indent">.</div>'
+    editorHtml += '<div class="content">%s</div>' % html.escape(element.title)
+    
+    editorHtml += '</div>'
+    return editorHtml
+
+
+def editor_recursive(node, buffer, level):
+    children = Node.objects.get_children(node)
+    
+    for child in children:
+        #buffer += '<div class="form-row">'
+        buffer.append(HierarchyElement(level, child.title))
+        
+        #for i in range(level * 20):
+        #    buffer += '&nbsp;'
+            #buffer += '<div class="spacing">.</div>'
+        
+        #buffer += html.escape(child.title)
+        #buffer += '</div>'
+        
+        buffer = editor_recursive(child, buffer = buffer, level = level + 1)
+    
+    return buffer
+
+class HierarchyElement:
+    def __init__(self, level, title):
+        self.level = level
+        self.title = title

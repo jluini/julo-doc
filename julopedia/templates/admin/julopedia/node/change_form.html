@@ -1,0 +1,23 @@
+{% extends "admin/change_form.html" %}
+{% load i18n static hierarchy %}
+
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" href="{% static 'julopedia/css/admin.css?v=1.0' %}">
+{% endblock %}
+
+{% block extrahead %}{{ block.super }}
+<script type="text/javascript" src="{% static 'julopedia/js/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'julopedia/js/jquery-ui/jquery-ui.js' %}"></script>
+<script type="text/javascript" src="{% static 'julopedia/js/hierarchy.js' %}"></script>
+{% endblock %}
+
+{% block form_top %}
+    {% trans "Hierarchy" %}
+    
+    <div class="hierarchy_editor">
+        {% hierarchy_editor original %}
+    </div>
+    
+    <br>
+    <br>
+{% endblock %}

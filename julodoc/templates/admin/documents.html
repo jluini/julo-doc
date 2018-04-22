@@ -1,0 +1,41 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static hierarchy %}
+
+{% block extrastyle %}{{ block.super }}
+{# Needed? <link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" /> #}
+<link rel="stylesheet" href="{% static 'julopedia/css/admin.css?v=1.0' %}">
+{% endblock %}
+
+{% block extrahead %}{{ block.super }}
+<script type="text/javascript" src="{% static 'julopedia/js/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'julopedia/js/jquery-ui/jquery-ui.js' %}"></script>
+<script type="text/javascript" src="{% static 'julopedia/js/hierarchy.js' %}"></script>
+{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+&rsaquo; {% trans "Documents" %}
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div id="content-main">
+    {% if has_permission %}
+    
+    
+    {% for root in root_nodes %}
+        <div class="hierarchy_editor">
+            <h1>{{ root.title }}</h1>
+            {% hierarchy_editor root %}
+        </div>
+    {% endfor %}
+    
+    {% endif %}
+</div>
+{% endblock %}

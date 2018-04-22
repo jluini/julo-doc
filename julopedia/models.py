@@ -2,7 +2,11 @@ from django.db import models
 from django.urls import reverse
 from django.template.defaultfilters import title
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
+
+from julodoc.tree import julotree
 
 class NodeManager(models.Manager):
     def get_children(self, node):
@@ -40,24 +44,30 @@ class Author(models.Model):
         verbose_name = _('author')
         verbose_name_plural = _('authors')
 
+valid_key = RegexValidator(julotree.key_regex)
+
 class Node(models.Model):
-    node_type = models.IntegerField(default = 0, choices = (
-        (0, "section"),
-        (1, "theory"),
-        (2, "exercise"),
-    ))
-    node_key = models.CharField(max_length = 200) 
-    title  = models.CharField(max_length = 200)
-    content = models.CharField(max_length = 15000, blank=True, default='')
-    author = models.ForeignKey(Author, on_delete=models.SET_NULL, null = True, blank = True)
+    # Manager
+    objects = NodeManager()
     
+    # Fields
+    node_type = models.IntegerField(default = 0, verbose_name=_('type'), choices = (
+        (0, _("section")),
+        (1, _("theory")),
+        (2, _("exercise")),
+    ))
+    
+    node_key = models.CharField(max_length = 200, verbose_name=_('key'), validators=[valid_key])
+    title  = models.CharField(max_length = 200, verbose_name=_('title'))
+    content = models.CharField(max_length = 15000, blank=True, default='', verbose_name=_('content'))
+    author = models.ForeignKey(Author, on_delete=models.SET_NULL, null = True, blank = True, verbose_name=_('author'))
+    
+    numbering = models.BooleanField(default=True,verbose_name=_('numbering'))
     
     created_time = models.DateTimeField(editable=False)
     modified_time = models.DateTimeField(editable=False)
     
-    parent = models.ForeignKey('self', on_delete=models.SET_NULL, null = True, blank = True)
-    
-    objects = NodeManager()
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, null = True, blank = True) #, editable=False)
     
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''

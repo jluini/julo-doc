@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-20 17:34-0300\n"
+"POT-Creation-Date: 2018-04-22 03:40-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,30 +18,80 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: julopedia/models.py:37
+#: julodoc/templates/admin/base_site.html:4
+msgid "Django site admin"
+msgstr ""
+
+#: julodoc/templates/admin/base_site.html:7
+msgid "Julopedia administration"
+msgstr "Administración de Julopedia"
+
+#: julodoc/templates/admin/documents.html:12
+msgid "Home"
+msgstr "Inicio"
+
+#: julodoc/templates/admin/documents.html:13
+msgid "Documents"
+msgstr "Documentos"
+
+#: julopedia/admin.py:14 julopedia/models.py:62
+msgid "content"
+msgstr "contenido"
+
+#: julopedia/models.py:44 julopedia/models.py:63
 msgid "author"
 msgstr "autor"
 
-#: julopedia/models.py:38
+#: julopedia/models.py:45
 msgid "authors"
 msgstr "autores"
 
-#: julopedia/models.py:58
+#: julopedia/models.py:54
+msgid "type"
+msgstr "tipo"
+
+#: julopedia/models.py:55
+msgid "section"
+msgstr "sección"
+
+#: julopedia/models.py:56
+msgid "theory"
+msgstr "teoría"
+
+#: julopedia/models.py:57
+msgid "exercise"
+msgstr "ejercicio"
+
+#: julopedia/models.py:60
+msgid "key"
+msgstr "clave"
+
+#: julopedia/models.py:61
+msgid "title"
+msgstr "título"
+
+#: julopedia/models.py:65
+msgid "numbering"
+msgstr "numeración"
+
+#: julopedia/models.py:82
 msgid "node"
 msgstr "nodo"
 
-#: julopedia/models.py:59
+#: julopedia/models.py:83
 msgid "nodes"
 msgstr "nodos"
+
+#: julopedia/templates/admin/julopedia/node/change_form.html:16
+msgid "Hierarchy"
+msgstr "Jerarquía"
 
 #: julopedia/templates/julopedia/index.html:62
 msgid "Root nodes"
 msgstr "Nodos raíz"
 
-#: julopedia/templates/julopedia/node.html:63
-msgid "Table of contents"
-msgstr "Tabla de contenidos"
+#~ msgid "Table of contents"
+#~ msgstr "Tabla de contenidos"
 
-#: julopedia/templates/julopedia/node.html:66
-msgid "Body"
-msgstr "Cuerpo"
+#~ msgid "Body"
+#~ msgstr "Cuerpo"

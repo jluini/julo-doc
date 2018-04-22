@@ -1,4 +1,3 @@
-
 from django.urls import path
 
 from . import views
@@ -13,4 +12,6 @@ urlpatterns = [
     #path('guide/<path:guide_path>/', views.guide, name='guide'),
     
     path('create/<str:author_name>/', views.createData, name='createData'),
+    
+    path('admin/documents/', views.DocumentView.as_view(), name='documents'),
 ]
