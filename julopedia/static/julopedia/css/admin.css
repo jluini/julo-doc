@@ -43,7 +43,6 @@
     /*background-color: #cccccc;*/
 }
 .hierarchy_editor .holder.holder_active {
-    /*background-image: url("/static/julopedia/img/add_active.png");*/
     font-weight: bold;
     background-color: #faa;
 }
@@ -52,7 +51,6 @@
     background-color: #aaf;
 }
 .hierarchy_editor .holder {
-    /*background-image: url("/static/julopedia/img/add.png");*/
     background-repeat: none;
     border: 0;
     background-color: #ddd;
