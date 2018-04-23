@@ -14,14 +14,14 @@
 }
 .hierarchy_editor .handle_cell {
     width:  50px;
+    cursor: move;
 }
 
 .hierarchy_editor .handle {
     font-size: 16pt;
 }
 .hierarchy_editor .handle img {
-    height: 20px;
-    cursor: move;
+    height: 25px;
 }
 .hierarchy_editor .header.header_last {
     width: 500px;
