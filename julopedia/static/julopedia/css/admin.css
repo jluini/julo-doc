@@ -1,6 +1,6 @@
 
 .hierarchy_editor table {
-    /*border-collapse: separate;*/ba
+    border-collapse: separate;
 }
 .hierarchy_editor td {
     vertical-align: middle;
@@ -13,8 +13,11 @@
     width:  50px;
 }
 .hierarchy_editor .handle_cell {
-    text-align: center;
     width:  50px;
+}
+
+.hierarchy_editor .handle {
+    font-size: 16pt;
 }
 .hierarchy_editor .handle img {
     height: 20px;
@@ -28,30 +31,37 @@
     width: 50px;
 }
 .hierarchy_editor .element {
-    height: 30px;
+    height: 50px;
     padding: 0;
     margin: 0;
 }
 .hierarchy_editor .bar {
-    height: 15px;
+    height: 20px;
 }
 
 .hierarchy_editor .holder_empty {
     /*background-color: #cccccc;*/
 }
 .hierarchy_editor .holder.holder_active {
-    background-color: #ffcccc;
-    border: 1px solid black;
+    /*background-image: url("/static/julopedia/img/add_active.png");*/
+    font-weight: bold;
+    background-color: #faa;
 }
 .hierarchy_editor .holder.holder_hover {
-    background-color: red;
+    /*background-color: #ffcccc;*/
+    background-color: #aaf;
 }
 .hierarchy_editor .holder {
-    /*background-color: #fafafa;
-    border: 1px solid #cacaca;*/
+    /*background-image: url("/static/julopedia/img/add.png");*/
+    background-repeat: none;
+    border: 0;
+    background-color: #ddd;
+    /*border: 1px dashed #cacaca;*/
+    text-align: center;
 }
 
 .hierarchy_editor .content {
     padding: 0;
     margin: 0;
+    font-size: 20pt;
 }

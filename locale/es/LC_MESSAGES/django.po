@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-22 03:40-0300\n"
+"POT-Creation-Date: 2018-04-22 16:53-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,21 +18,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: julodoc/templates/admin/base_site.html:4
-msgid "Django site admin"
-msgstr ""
-
-#: julodoc/templates/admin/base_site.html:7
+#: julodoc/templates/admin/base_site.html:5
+#: julodoc/templates/admin/base_site.html:9
 msgid "Julopedia administration"
 msgstr "Administración de Julopedia"
 
-#: julodoc/templates/admin/documents.html:12
+#: julodoc/templates/admin/documents.html:22
 msgid "Home"
 msgstr "Inicio"
 
-#: julodoc/templates/admin/documents.html:13
+#: julodoc/templates/admin/documents.html:23 julopedia/views.py:19
 msgid "Documents"
 msgstr "Documentos"
+
+#: julodoc/templates/admin/documents.html:38
+msgid "You must login to see this page."
+msgstr "Debes registrarte para ver esta página."
 
 #: julopedia/admin.py:14 julopedia/models.py:62
 msgid "content"
@@ -82,7 +83,7 @@ msgstr "nodo"
 msgid "nodes"
 msgstr "nodos"
 
-#: julopedia/templates/admin/julopedia/node/change_form.html:16
+#: julopedia/templates/admin/julopedia/node/change_form.html:15
 msgid "Hierarchy"
 msgstr "Jerarquía"
 

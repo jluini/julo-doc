@@ -22,10 +22,5 @@ class NodeAdmin(admin.ModelAdmin):
     form = NodeModelForm
     list_display = ('title', 'node_key', 'author', 'node_type')
     
-    def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
-        print("La vida loca!!!")
-        return super().render_change_form(request, context, add=add, change=change, form_url=form_url, obj=obj)
-    
-
 admin.site.register(Author)
 admin.site.register(Node, NodeAdmin)

@@ -1,0 +1,24 @@
+{% load i18n hierarchy %}
+
+<h2>{% trans "Hierarchy" %}</h2>
+
+
+<table class="hierarchy_editor">
+    
+    <tr>
+        {% for column in columns %}
+            <th class="{{ column }}"></th>
+        {% endfor %}
+    </tr>
+    
+    {% for table_row in table_rows %}
+        {% if table_row.is_spacing_row %}
+            <tr class="bar">{{ table_row.to_html }}</tr>
+            {# hierarchy_spacing table_row #}
+        {% else %}
+            <tr class="element">{{ table_row.to_html }}</tr>
+            {# hierarchy_element table_row #}
+        {% endif %}
+    {% endfor %}
+    
+</table>

@@ -9,8 +9,13 @@ from django.utils import timezone
 from julodoc.tree import julotree
 
 class NodeManager(models.Manager):
-    def get_children(self, node):
-        return self.filter(parent=node.id)
+    def get_children(self, parent):
+        if parent:
+            parent_id = parent.id
+        else:
+            parent_id = None
+        
+        return self.filter(parent=parent_id)
     
     def get_by_path(self, path):
         if not isinstance(path, (list, tuple)):
@@ -83,4 +88,4 @@ class Node(models.Model):
         verbose_name_plural = _('nodes')
     
     def __str__(self):
-        return self.title
+        return '(' + str(self.id) + ')-' + self.title[:3]
