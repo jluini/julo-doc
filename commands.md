@@ -12,7 +12,7 @@ pypandoc.convert_file('example.md', 'html', format='markdown+tex_math_double_bac
 
 # django
 
-* python manage.py runserver
+* python manage.py runserver 0.0.0.0:8000
 * python manage.py shell
 * python manage.py makemigrations
 * python manage.py migrate

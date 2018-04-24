@@ -1,7 +1,6 @@
-{% load i18n hierarchy %}
+{% load i18n static hierarchy %}
 
 <h2>{% trans "Hierarchy" %}</h2>
-
 
 <table class="hierarchy_editor">
     
@@ -13,10 +12,29 @@
     
     {% for table_row in table_rows %}
         {% if table_row.is_spacing_row %}
-            <tr class="bar">{{ table_row.to_html }}</tr>
-            {# hierarchy_spacing table_row #}
+            <tr class="bar">
+                {% for item in table_row.items %}
+                    <td class="{{ item.css_class }}">{{ item.content }}</td>
+                {% endfor %}
+                
+                {% if table_row.has_padding %}
+                    <td colspan="{{ table_row.padding_colspan }}"></td>
+                {% endif %}
+            </tr>
         {% else %}
-            <tr class="element">{{ table_row.to_html }}</tr>
+            <tr class="element">
+                {% for i in table_row.indents %}
+                    <td class="indent"></td>
+                {% endfor %}
+                <td class="handle_cell handle_cell{{ table_row.item.css_class}}" colspan="{{ table_row.item.colspan }}">
+                    <div class="handle">
+                        <img src="{% static 'julopedia/img/arrow.png' %}" />
+                        <a href="{% url 'admin:julopedia_node_change' table_row.item.id %}">{{ table_row.item.content }}</a>
+                    </div>
+                </td>
+            </tr>
+            
+            {# <tr class="element">{{ table_row.to_html }}</tr> #}
             {# hierarchy_element table_row #}
         {% endif %}
     {% endfor %}

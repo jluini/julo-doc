@@ -8,26 +8,24 @@ from _sqlite3 import Row
 
 register = template.Library()
 
-#total_columns = 20
-
 class HierarchyElement:
     def __init__(self, chain):
         self.chain = chain
         
-    def get_title_html(self):
+    def get_title(self):
         h = self.head()
         if h:
-            return html.escape(h.title)
+            return h.title
         else:
             return '(root)'
+        
     def level(self):
         return len(self.chain) - 1
     def head(self):
-        #print('%s --> %s' % (self.chain, self.chain[-1][0]))
         return self.chain[-1][0]
     
     def __str__(self):
-        return str(self.chain) + ': ' + self.get_title_html()
+        return str(self.chain) + ': ' + self.get_title()
     
 class SpacingRow:
     def __init__(self, chain, min_level, total_columns):
@@ -38,11 +36,15 @@ class SpacingRow:
     def is_spacing_row(self):
         return True
     
-    def to_html(self):
-        ret = ''
-        #print(self.min_level, self.chain)
+    def items(self):
+        ret = []
+        
         for i in range(self.min_level):
-            ret += '<td class="holder_empty"></td>'
+            ret.append({
+                'css_class': 'holder_empty',
+                'content': ''
+            })
+        
         for i in range(self.min_level, len(self.chain)):
             chain_str = ''
             for j in range(i + 1):
@@ -53,12 +55,18 @@ class SpacingRow:
             
             chain_str += '-%s' % (sibling_index)
                 
-            ret += '<td class="holder holder%s">+</td>' % chain_str
+            ret.append({
+                'css_class': 'holder holder%s' % chain_str,
+                'content': '+'
+            })
         
-        if self.total_columns > len(self.chain):
-            ret += '<td colspan="%s"></td>' % (self.total_columns - len(self.chain))
-        
-        return mark_safe(ret)
+        return ret
+    
+    def has_padding(self):
+        return self.padding_colspan() > 0
+    
+    def padding_colspan(self):
+        return self.total_columns - len(self.chain)
     
 class ElementRow:
     def __init__(self, element, total_columns):
@@ -71,14 +79,14 @@ class ElementRow:
     def __str__(self):
         return self.element.__str__()
     
-    def to_html(self):
-        ret = ''
-        level = len(self.element.chain) - 1
-        
-        for i in range(level - 1):
-            ret += '<td class="indent"></td>'
-        
-        colspan = self.total_columns - (level - 1)
+    def level(self):
+        return len(self.element.chain) - 1
+    
+    def indents(self):
+        return [0] * (self.level() - 1)
+    
+    def item(self):
+        colspan = self.total_columns - (self.level() - 1)
         
         chain_str = ''
         for (node, count) in self.element.chain:
@@ -86,26 +94,19 @@ class ElementRow:
         
         chain_str += '-%s' % (self.element.chain[-2][1] - 1)
         
-        ret += '<td class="handle_cell handle_cell%s" colspan="%s"><div class="handle"><img src="%s" /> %s</div></td>' % (chain_str, colspan, static('julopedia/img/arrow.png'), self.element.get_title_html())
-        
-        return mark_safe(ret)
+        return {
+            'css_class': chain_str,
+            'colspan': colspan,
+            'content': self.element.get_title(),
+            'id': self.element.head().id
+        }
 
 @register.inclusion_tag('admin/julopedia/node/hierarchy_tree.html')
 def hierarchy_tree(root):
     (elements, max_level) = get_hierarchy_elements([], [(root, 0)])
     
-    print('\n')
-    for e in elements:
-        print(e)
-    print('\n')
-    
     total_columns = max_level + 2
     rows = get_table_rows(elements, total_columns)
-    
-    #print('\n')
-    #for r in rows:
-    #    print(r)
-    #print('\n')
     
     columns = ['header'] * (total_columns - 1)
     columns.append('header header_last')
@@ -128,7 +129,6 @@ def get_table_rows(elements, total_columns):
         else:
             next_level = elements[index + 1].level() - 1
         ret.append(SpacingRow(element.chain, next_level, total_columns))
-        
     
     return ret
 

@@ -9,7 +9,7 @@ def jsonToHtml(json, level):
 def markdownToJson(md):
         return pypandoc.convert_text(md, 'json', format='markdown-raw_html')
 
-key_regex = re.compile('^[A-Za-z][A-Za-z0-9\-\.]*$')
+key_regex = re.compile('^[A-Za-z][A-Za-z0-9\-\.\_]*$')
 
 class t:
     @staticmethod

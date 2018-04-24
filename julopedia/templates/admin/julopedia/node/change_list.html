@@ -12,9 +12,9 @@
 <script type="text/javascript" src="{% static 'julopedia/js/hierarchy.js' %}"></script>
 {% endblock %}
 
-{% block coltype %}colMS{% endblock %}
 
-{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-list{% endblock %}
+{# block bodyclass #}{{ block.super }} dashboard{# endblock #}
 
 {% block breadcrumbs %}
 <div class="breadcrumbs">
@@ -23,10 +23,13 @@
 </div>
 {% endblock %}
 
-{% block content_title %}{% endblock %}
+{# block content_title #}{# endblock #}
+
+{% block coltype %}flex{% endblock %}
 
 {% block content %}
 <div id="content-main">
+
     {% if has_permission %}
         {% hierarchy_tree None %}
     {% else %}

@@ -21,6 +21,8 @@ class NodeModelForm(forms.ModelForm):
 class NodeAdmin(admin.ModelAdmin):
     form = NodeModelForm
     list_display = ('title', 'node_key', 'author', 'node_type')
+    fields = ('author', 'node_type', 'node_key', 'title', 'content', 'numbering')
+    #fields = ('title', 'node_key', 'author', 'node_type')
     
 admin.site.register(Author)
 admin.site.register(Node, NodeAdmin)

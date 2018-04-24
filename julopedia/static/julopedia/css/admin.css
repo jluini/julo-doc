@@ -14,7 +14,7 @@
 }
 .hierarchy_editor .handle_cell {
     width:  50px;
-    cursor: move;
+    /*cursor: move;*/
 }
 
 .hierarchy_editor .handle {
@@ -22,6 +22,7 @@
 }
 .hierarchy_editor .handle img {
     height: 25px;
+    cursor: move;
 }
 .hierarchy_editor .header.header_last {
     width: 500px;
